@@ -1,66 +1,27 @@
 import express from 'express'
-import multer from 'multer'
-import path from "path"
 import {storeDocument} from '../utils/pinecone.js'
 import extractTextFromPDF from '../utils/pdfParser.js';
+import protect from '../middelware/Auth.middelware.js';
+import uploads_multer from '../utils/multer.js';
 
 
+import { getAllUserDocument ,DeletUserDocument , Uploads } from '../controller/Uploads.Controller.js';
 const router  = express.Router();
 
 
-//where the file save and what si the name of the file
-
-const storage = multer.diskStorage({
-    destination:(req,file,cb)=>{
-        cb(null , 'uploads/')
-    },
-    filename:(req,file , cb)=>{
-        cb(null , Date.now() + path.extname(file.originalname))
-    }
-})
 
 
-//only allow pdf and images
 
-const fileFilter = (req,file ,cb)=>{
-    const allowed = ['application/pdf', 'image/jpeg', 'image/png']
-    if(allowed.includes(file.mimetype)){
-        cb(null , true);
-    }else{
-        cb(new Error("only upload PDF ya Image!") , false)
-    }
-}
-
-const upload = multer({storage , fileFilter})
+router.post('/',protect , uploads_multer.single('file') ,Uploads)
 
 
-router.post('/' , upload.single('file') , async(req,res)=>{
-    if(!req.file){
-          return res.status(400).json({ message: 'File not found!' })
-    }
+// User all document
+router.get("/document" , protect ,getAllUserDocument);
 
-    try{
-        let extractedText = '';
-        const fileId = req.file.filename
 
-        //If it is padf then extract text from this PDF
-        if(req.file.mimetype == 'application/pdf'){
-            extractedText = await extractTextFromPDF(req.file.path);
-        }
+// DELETE - delete user document
+router.delete('/:fileId' , protect ,DeletUserDocument)
 
-        await storeDocument(extractedText , fileId)
-        res.json({
-            message:"File has been uploaded ✔",
-            filename:req.file.filename,
-            text:extractedText.slice(0 , 500)
-        })
-    }catch(error){
-        res.status(500).json({ message: 'Text not extracted from PDf', error:error.message })
-
-    }
-
-   
-})
 
 
 export default router;
