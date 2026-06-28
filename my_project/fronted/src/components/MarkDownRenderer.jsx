@@ -62,7 +62,7 @@ const MarkdownRenderer = ({ content }) => {
           ) : (
             // Inline code
             <code
-              className={`px-1.5 py-0.5 rounded text-xs font-mono break-words
+              className={`px-1.5 py-0.5 rounded text-xs font-mono  [word-break:break-word]
                 ${theme === 'dark' ? 'bg-gray-700 text-violet-300' : 'bg-gray-200 text-violet-600'}`}
               {...props}
             >
@@ -73,18 +73,18 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Headings ──
         h1: ({ children }) => (
-          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2 break-words">{children}</h1>
+          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2  [word-break:break-word]">{children}</h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2 break-words">{children}</h2>
+          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2  [word-break:break-word]">{children}</h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1 break-words">{children}</h3>
+          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1  [word-break:break-word]">{children}</h3>
         ),
 
         // ── Paragraph ──
         p: ({ children }) => (
-          <p className="mb-2 leading-relaxed text-sm sm:text-base break-words">{children}</p>
+          <p className="mb-2 leading-relaxed text-sm sm:text-base  [word-break:break-word]">{children}</p>
         ),
 
         // ── Lists ──
@@ -95,7 +95,7 @@ const MarkdownRenderer = ({ content }) => {
           <ol className="list-decimal list-inside mb-2 flex flex-col gap-1">{children}</ol>
         ),
         li: ({ children }) => (
-          <li className="text-xs sm:text-sm break-words">{children}</li>
+          <li className="text-xs sm:text-sm  [word-break:break-word]">{children}</li>
         ),
 
         // ── Bold + Italic ──
@@ -108,7 +108,7 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Blockquote ──
         blockquote: ({ children }) => (
-          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm break-words
+          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm  [word-break:break-word]
             ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
           >
             {children}
@@ -133,7 +133,7 @@ const MarkdownRenderer = ({ content }) => {
           </th>
         ),
         td: ({ children }) => (
-          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm break-words
+          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm  [word-break:break-word]
             ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
           >
             {children}
