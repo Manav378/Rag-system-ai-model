@@ -23,7 +23,7 @@ const MarkdownRenderer = ({ content }) => {
           const codeString = String(children).replace(/\n$/, '')
 
           return !inline && match ? (
-            <div className="relative my-2 rounded-xl overflow-hidden w-full">
+           <div className="relative my-2 rounded-xl overflow-hidden w-full max-w-full">
               {/* Language + Copy Button */}
               <div className={`flex items-center justify-between px-3 sm:px-4 py-2 text-xs font-mono
                 ${theme === 'dark' ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-600'}`}
@@ -37,9 +37,8 @@ const MarkdownRenderer = ({ content }) => {
                   Copy
                 </button>
               </div>
-
               {/* Code — horizontal scroll */}
-              <div className="overflow-x-auto w-full">
+              <div className="overflow-x-auto w-full max-w-full">
                 <SyntaxHighlighter
                   style={theme === 'dark' ? oneDark : oneLight}
                   language={match[1]}
@@ -48,10 +47,11 @@ const MarkdownRenderer = ({ content }) => {
                     margin: 0,
                     borderRadius: 0,
                     fontSize: '0.72rem',
-                    overflowX: 'auto',
+                    overflowX: 'visible',   // 'auto' se 'visible' karo
                     whiteSpace: 'pre',
                     wordBreak: 'normal',
-                    width: '100%',
+                    width: 'max-content',   // '100%' se 'max-content' karo — yahi main fix hai
+                    minWidth: '100%',       // chhote code ke liye full width bhi rahegi
                   }}
                   {...props}
                 >
