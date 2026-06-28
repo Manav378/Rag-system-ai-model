@@ -27,12 +27,16 @@ const Chatbot = () => {
                 content: m.content
             }))
 
-            const response = await fetch('http://localhost:5000/api/chatbot/chatbot-stream', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                credentials: 'include',
-                body: JSON.stringify({ message: input, history })
-            })
+         // Chatbot.jsx mein fetch URL update karo
+const response = await fetch(
+  `${import.meta.env.VITE_API_URL}/chatbot/stream`,  // ← Fix
+  {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    body: JSON.stringify({ message: input, history })
+  }
+)
 
             const reader = response.body.getReader()
             const decoder = new TextDecoder()

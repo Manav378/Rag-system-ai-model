@@ -54,16 +54,16 @@ const Chat = () => {
 
     try {
       console.log(question, fileId, fileId)
-      const response = await fetch('http://localhost:5000/api/chat/stream', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',  // cookies ke liye
-        body: JSON.stringify({
-          question,
-          fileId,
-          fileName: fileId
-        })
-      })
+     // Chat.jsx mein bhi same fix
+const response = await fetch(
+  `${import.meta.env.VITE_API_URL}/chat/stream`,  // ← Fix
+  {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ question, fileId, fileName: currentDoc?.originalName })
+  }
+)
 
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
