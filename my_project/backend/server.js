@@ -27,13 +27,23 @@ mongoose.connect(process.env.MONGODB_URI)
 
   const app = express();
 
-  app.use(cors(
-     { origin:[
-        'https://documind-ai-ruddy.vercel.app',
-         'http://localhost:5173'
-     ],
-      credentials:true}
-  ));
+app.use(cors({
+  origin: function(origin, callback) {
+    // Sab vercel.app domains allow karo
+    if (!origin || 
+        origin.includes('vercel.app') || 
+        origin === 'http://localhost:5173') {
+      callback(null, true)
+    } else {
+      callback(new Error('CORS not allowed'))
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'Cookie'],
+}))
+
+app.options('*', cors())
 app.use(cookieParser());
 app.use(express.json());
 
