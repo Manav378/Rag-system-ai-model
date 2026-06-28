@@ -12,6 +12,8 @@ import uploadRoute from './routes/upload.js';
 import chatGrok from './routes/chat.js'
 import AuthRouter from './routes/Auth.Routes.js';
 import Resumerouter from './routes/Resume.Routes.js'
+import ChatbotRouter from './routes/Chatbot.Routes.js'
+
 console.log(process.env.MONGODB_URI)
 
 // MongoDB connect karo
@@ -37,6 +39,7 @@ app.use("/api/upload" , uploadRoute)
 app.use('/api/chat' , chatGrok)
 app.use('/api/auth' , AuthRouter);
 app.use('/api/resume' , Resumerouter)
+app.use('/api/chatbot' , ChatbotRouter)
 
 
 

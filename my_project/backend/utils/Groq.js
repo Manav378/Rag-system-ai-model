@@ -14,20 +14,21 @@ const askGroq = async (context, question) => {
     messages: [
       {
         role: 'user',
-        content: `Neeche diya gaya context padho:
+        content: `read the context given below:
         
 ${context}
 
-Ab sirf is context ke basis pe yeh question ka jawab do:
+Only answer this question on basis of given context:
 ${question}
 
-Agar answer context mein nahi hai to bolo
+if answer is not present in context
 "This information is not present in document!!"`
       }
     ],
-    max_tokens: 1024
+    max_tokens: 1024,
+    stream:true
   })
 
-  return response.choices[0].message.content
+  return response
 }
 export default askGroq

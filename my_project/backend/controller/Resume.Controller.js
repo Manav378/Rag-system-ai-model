@@ -1,13 +1,22 @@
 import extractTextFromPDF from "../utils/pdfParser.js";
 import askGroq from "../utils/Groq.js";
+import { Groq } from "groq-sdk/client.js";
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY
+})
 
 const analyzeResume = async (req, res) => {
   try {
+
+    
     if (!req.file) {
       return res.status(400).json({ message: "Please upload your resume!" });
     }
 
     const resumeText = await extractTextFromPDF(req.file.path);
+
+
 
     if (!resumeText || resumeText.trim().length == 0) {
       return res.status(400).json({ message: "Text not extracted from pdf!" });
@@ -40,13 +49,33 @@ Only return JSON, nothing else.
 
         `;
 
-    const result = await askGroq(prompt);
+   const completion = await groq.chat.completions.create({
+  model: "llama-3.3-70b-versatile",
+  messages: [
+    {
+      role: "user",
+      content: prompt,
+    },
+  ],
+  temperature: 0.2,
+});
+
+const result = completion.choices[0].message.content;
+   
+
     const cleaned = result.replace(/```json|```/g, "").trim();
+   
     const analysis = JSON.parse(cleaned);
 
     res.json({ message: "Resume analyzed! ✅", analysis });
   } catch (error) {
-     res.status(500).json({ message: 'Error in resume uploading!', error: error.message })
+
+
+  res.status(500).json({
+    message: 'Error in resume uploading!',
+    error: error.message,
+
+  });
   }
 };
 
@@ -91,7 +120,18 @@ Return exactly this JSON:
 Only return JSON, nothing else.
 `
 
-        const result = await askGroq(prompt);
+        const completion = await groq.chat.completions.create({
+  model: "llama-3.3-70b-versatile",
+  messages: [
+    {
+      role: "user",
+      content: prompt,
+    },
+  ],
+  temperature: 0.2,
+});
+
+const result = completion.choices[0].message.content;
          const cleaned = result.replace(/```json|```/g, '').trim()
          const matchResult = JSON.parse(cleaned);
           res.json({ message: 'Match analyzed! ✅', matchResult })

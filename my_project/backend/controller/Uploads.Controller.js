@@ -2,46 +2,50 @@ import User from "../models/User.js";
 import extractTextFromPDF from "../utils/pdfParser.js";
 import { storeDocument } from "../utils/pinecone.js";
 
-const Uploads = async(req , res)=>{
-   
-    if(!req.file){
-          return res.status(400).json({ message: 'File not found!' })
+
+import { uploadToCloudinary } from "../utils/cloudinary.js"
+import fs from 'fs'
+const Uploads = async (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'File not found!' })
+  }
+
+  try {
+    let extractedText = ''
+    const fileId = req.file.filename        // Cloudinary public_id
+    const originalName = req.file.originalname
+    const fileUrl = req.file.path           // ← Cloudinary URL milega
+
+    if (req.file.mimetype === 'application/pdf') {
+      // Cloudinary URL se text extract karo
+      extractedText = await extractTextFromPDF(fileUrl)
+      await storeDocument(extractedText, fileId)
     }
 
-    try{
-        let extractedText = '';
-        const fileId = req.file.filename
-
-        //If it is pdf then extract text from this PDF
-        if(req.file.mimetype == 'application/pdf'){
-            extractedText = await extractTextFromPDF(req.file.path);
-            await storeDocument(extractedText , fileId)
+    await User.findByIdAndUpdate(req.user._id, {
+      $push: {
+        documents: {
+          fileId: fileId,
+          filename: fileId,
+          originalName: originalName,
+          fileUrl: fileUrl,               // ← URL save karo
         }
+      }
+    })
 
-        await User.findByIdAndUpdate(req.user._id,{
-            $push:{
-                documents:{
-                    fileId:fileId,
-                    filename:fileId,
-                    originalName:req.file.originalName,
-                }
-            }
-        })
+    res.json({
+      message: "File has been uploaded ✔",
+      fileId: fileId,
+      originalName: originalName,
+      fileUrl: fileUrl
+    })
 
-        res.json({
-            message:"File has been uploaded ✔",
-            filename:req.file.filename,
-            text:extractedText.slice(0 , 500),
-            originalName:req.file.originalName
-        })
-    }catch(error){
-        res.status(500).json({ message: 'Text not extracted from PDf', error:error.message })
-
-    }
-
-   
-
+  } catch (error) {
+    res.status(500).json({ message: 'Error aaya', error: error.message })
+  }
 }
+
+
 
 
 
@@ -62,6 +66,10 @@ const Uploads = async(req , res)=>{
 const DeletUserDocument = async(req,res)=>{
     try {
         const {fileId} = req.params;
+
+          // ← Cloudinary se bhi delete karo
+    const { cloudinary } = await import('../utils/cloudinary.js')
+    await cloudinary.uploader.destroy(fileId, { resource_type: 'raw' })
 
         // Remove from Mongo db
 

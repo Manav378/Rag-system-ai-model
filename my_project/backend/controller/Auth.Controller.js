@@ -2,6 +2,7 @@ import User from "../models/User.js";
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import cookie from 'cookie-parser'
+import ChatModels from "../models/Chat.models.js";
 
 
 const generateToken = (userId)=>{
@@ -24,7 +25,7 @@ const cookieOptions = {
 
 
 //--------------------Signup-----------------
-const Signup = async(req , res)=>{
+export const Signup = async(req , res)=>{
 
 
     const {name , email , password} = req.body
@@ -62,7 +63,7 @@ const Signup = async(req , res)=>{
 }
 
 //--------------------Login-----------------
-const Login = async(req,res)=>{
+export const Login = async(req,res)=>{
 const {email , password} = req.body;
 
 
@@ -102,7 +103,7 @@ try {
 //--------------------Logout-----------------
 
 
-const Logout = async(req , res)=>{
+export const Logout = async(req , res)=>{
     res.clearCookie('token');
     res.json({ message: 'Logout successfully! ✅' })
 }
@@ -111,7 +112,7 @@ const Logout = async(req , res)=>{
 
 //--------------------profile-----------------
 
-const Profile = async(req , res)=>{
+export const Profile = async(req , res)=>{
     try {
         res.json({user:req.user})
     } catch (error) {
@@ -120,4 +121,90 @@ const Profile = async(req , res)=>{
 }
 
 
-export  {Login , Signup , Logout , Profile}
+//-----------------change password------------
+
+export const change_password = async(req , res)=>{
+    const {currentPassword , newPassword} = req.body;
+
+    if(!currentPassword || !newPassword) return res.status(400).json({message:'Both Password required!'});
+
+    if(newPassword.length < 6) return res.status(400).json({message:"Password atleast 6 characters"})
+
+        try {
+            //check current password
+            const user = await User.findById(req.user._id)
+
+            const isMatch = await bcrypt.compare(currentPassword , user.password)
+            if(!isMatch) return res.status(400).json({message:"your current password is wrong!"})
+                
+                //hash New password 
+                const hashed = await bcrypt.hash(newPassword , 10)
+                await User.findByIdAndUpdate(req.user._id , {password:hashed})
+                res.json({message:"Password changed successfully! ✅"})
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error in changing password', error: error.message })
+        }
+}
+
+
+
+//-----------------Delete Account------------
+export const DeleteAcount = async(req , res)=>{
+    try {
+
+        //delete users all chats
+        await ChatModels.deleteMany({userId:req.user._id})
+
+        // Delete user
+        await User.findByIdAndDelete(req.user._id)
+
+        //clear cookie 
+
+        res.clearCookie('token',{
+            httpOnly:true,
+            secure:process.env.NODE_ENV === 'production',
+            sameSite:process.env.NODE_ENV === 'production' ? 'none' : 'lax'
+        })
+
+        res.json({message:"Account has been deleted successfully!✅"})
+
+    } catch (error) {
+         res.status(500).json({ message: 'Error in deleting account', error: error.message })
+    }
+}
+
+
+
+
+//-----------------Get state-----------
+
+
+export const Stats = async(req , res)=>{
+    try {
+        const user = await User.findById(req.user._id).select('documents , createdAt')
+
+
+        //count total question 
+        const chats = await ChatModels.find({userId:req.user._id})
+
+        const totalQuestion = chats.reduce((acc , chat)=>{
+
+            //only count user messages
+            const userMessage = chat.message.filter(m=>m.role === 'user')
+            return acc + userMessage.length
+        } ,0)
+
+
+        res.json({
+            totalDocuments:user.documents.length,
+            totalQuestion,
+            memberSince:user.createdAt
+        })
+    } catch (error) {
+          res.status(500).json({ message: 'Error in states', error: error.message })
+    }
+}
+
+
+

@@ -26,6 +26,7 @@ const UserSchema = new Schema({
             fileId:String,  //Pinecone store fileId
             filename:String, //original filename
             originalName:String,
+            fileUrl:String,
             uploadedAt:{
                 type:Date,
                 default:Date.now
