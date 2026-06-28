@@ -8,18 +8,14 @@ const Layout = () => {
 
     const {theme} = useTheme()
   return (
-     <div className={`flex min-h-screen ${theme === 'dark' ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
-      
-     {/* Sidebar — Left */}
-      <Sidebar />
+ <div className={`flex min-h-screen overflow-x-hidden ${theme === 'dark' ? 'bg-gray-950 text-white' : 'bg-gray-50 text-gray-900'}`}>
+  
+  <Sidebar />
 
-
-
-       {/* Main Content — Right */}
-      <main className="ml-0 md:ml-64 flex-1 p-4 md:p-8">
-        <Outlet />
-      </main>
-    </div>
+  <main className="ml-0 md:ml-64 flex-1 min-w-0 p-4 md:p-8 overflow-x-hidden">
+    <Outlet />
+  </main>
+</div>
 
 
 
