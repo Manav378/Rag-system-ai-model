@@ -29,7 +29,7 @@ const Chatbot = () => {
 
          // Chatbot.jsx mein fetch URL update karo
 const response = await fetch(
-  `${import.meta.env.VITE_API_URL}/chatbot/stream`,  // ← Fix
+  `${import.meta.env.VITE_API_URL}/chatbot/chatbot-stream`,  // ← Fix
   {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
