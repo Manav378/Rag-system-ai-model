@@ -117,16 +117,16 @@ const Dashboard = () => {
          {uploading ? (
           <div className="flex flex-col items-center gap-3">
             <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-violet-500" />
-            <p className="text-violet-400">Upload ho raha hai...</p>
+            <p className="text-violet-400">Document is Uloading...</p>
           </div>
         ) : (
           <div className="flex flex-col items-center gap-3">
             <Upload size={36} className="text-violet-400" />
             <p className={`font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              PDF ya Image yahan drop karo
+              Drop PDF or IMAGE here
             </p>
             <p className={`text-sm ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-              ya upar Upload button use karo
+              Use upload button
             </p>
           </div>
         )}
@@ -148,9 +148,9 @@ const Dashboard = () => {
         /* Empty State */
         <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
           <FileText size={48} className="text-gray-500" />
-          <h3 className="text-lg font-semibold">Koi document nahi hai</h3>
+          <h3 className="text-lg font-semibold">No document present</h3>
           <p className={`text-sm ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
-            Upar upload karo aur AI se baat karo!
+           Click on upload and talk wth AI
           </p>
         </div>
 

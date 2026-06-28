@@ -131,7 +131,7 @@ const Resume = () => {
       <div className="mb-8">
         <h1 className="text-2xl font-bold">Resume Analyzer</h1>
         <p className={`text-sm mt-1 ${theme === 'dark' ? 'text-gray-400' : 'text-gray-500'}`}>
-          ATS Score check karo aur job description se match karo
+         Check your ATS score and job description
         </p>
       </div>
 
@@ -181,7 +181,7 @@ const Resume = () => {
           >
             <Upload size={32} className="text-violet-400" />
             <p className={`font-medium ${theme === 'dark' ? 'text-gray-300' : 'text-gray-700'}`}>
-              Resume PDF drop karo ya click karo
+             Drop resume PDF and check your ATS score
             </p>
             <input
               id="resumeInput"
