@@ -7,7 +7,10 @@ import Landing from './pages/Landing.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import Layout from './components/Layout.jsx'
 import Dashboard from './pages/Dashboard.jsx'
-
+import Chat from './pages/Chat.jsx'
+import Resume from './pages/Resume.jsx'
+import Profile from './pages/Profile.jsx'
+import Chatbot from './pages/Chatbot.jsx'
 const App = () => {
   return (
     <BrowserRouter>
@@ -29,9 +32,10 @@ const App = () => {
          }>
 
           <Route path='/dashboard' element={<Dashboard/>} />
-          <Route path='/chat/:fileId' element={<h1>Chat</h1>}/>
-          <Route path='/resume' element={<h1>Resume</h1>}/>
-          <Route path='/profile' element={<h1>Profile</h1>}/>
+          <Route path='/chat/:fileId' element={<Chat/>}/>
+          <Route path='/resume' element={<Resume/>}/>
+          <Route path='/profile' element={<Profile/>}/>
+          <Route path='/chatbot' element={<Chatbot/>}/>
          </Route>
       </Routes>
     </BrowserRouter>

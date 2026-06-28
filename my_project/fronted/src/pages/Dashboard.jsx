@@ -78,7 +78,8 @@ const Dashboard = () => {
 
     return (
         <div>
-            <div className="flex items-center justify-between mb-8">
+            {/* Stack title and upload button vertically on mobile, side by side from sm breakpoint up */}
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
 
                 <div>
                     <h1 className="text-2xl font-bold">My Documents</h1>
@@ -87,8 +88,8 @@ const Dashboard = () => {
                     </p>
                 </div>
 
-                {/* Upload Button */}
-                <label className="flex items-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl cursor-pointer transition">
+                {/* Upload Button — full width on mobile, auto width from sm up */}
+                <label className="flex items-center justify-center gap-2 px-4 py-2 bg-violet-600 hover:bg-violet-700 text-white rounded-xl cursor-pointer transition w-full sm:w-auto">
                     <Plus size={18} />
                     Upload Document
                     <input
@@ -100,12 +101,12 @@ const Dashboard = () => {
                 </label>
             </div>
 
-              {/* Drag & Drop Area */}
+              {/* Drag & Drop Area — smaller padding on mobile */}
       <div
         onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
         onDragLeave={() => setDragging(false)}
         onDrop={handleDrop}
-        className={`border-2 border-dashed rounded-2xl p-10 text-center mb-8 transition
+        className={`border-2 border-dashed rounded-2xl p-6 md:p-10 text-center mb-8 transition
           ${dragging
             ? 'border-violet-500 bg-violet-500/10'
             : theme === 'dark'
@@ -145,7 +146,7 @@ const Dashboard = () => {
       ) : document.length === 0 ? (
 
         /* Empty State */
-        <div className="flex flex-col items-center justify-center py-20 gap-4">
+        <div className="flex flex-col items-center justify-center py-20 gap-4 text-center px-4">
           <FileText size={48} className="text-gray-500" />
           <h3 className="text-lg font-semibold">Koi document nahi hai</h3>
           <p className={`text-sm ${theme === 'dark' ? 'text-gray-500' : 'text-gray-400'}`}>
@@ -155,7 +156,7 @@ const Dashboard = () => {
 
       ) : (
 
-        /* Documents Grid */
+        /* Documents Grid — already responsive: 1 col mobile, 2 cols tablet, 3 cols desktop */
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {document.map((doc) => (
             <div

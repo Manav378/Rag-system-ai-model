@@ -16,7 +16,7 @@ const Layout = () => {
 
 
        {/* Main Content — Right */}
-      <main className="ml-64 flex-1 p-8">
+      <main className="ml-0 md:ml-64 flex-1 p-4 md:p-8">
         <Outlet />
       </main>
     </div>

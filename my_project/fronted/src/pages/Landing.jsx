@@ -11,17 +11,17 @@ export default function Landing() {
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-gray-950 text-white' : 'bg-slate-50 text-gray-900'}`}>
 
-      {/* Header */}
-      <header className={`sticky top-0 z-50 flex items-center justify-between px-6 py-4 border-b backdrop-blur-md transition-colors duration-300 ${isDark ? 'border-gray-800 bg-gray-950/80' : 'border-gray-200 bg-white/80'}`}>
+      {/* Header — tighter padding and gap on small screens */}
+      <header className={`sticky top-0 z-50 flex items-center justify-between px-4 sm:px-6 py-4 border-b backdrop-blur-md transition-colors duration-300 ${isDark ? 'border-gray-800 bg-gray-950/80' : 'border-gray-200 bg-white/80'}`}>
         <div 
           className="flex items-center gap-2 cursor-pointer group"
           onClick={() => navigate('/')}
         >
           <Brain className="text-violet-500 group-hover:text-violet-400 transition-colors" size={28} />
-          <span className="text-xl font-bold tracking-tight">DocuMind AI</span>
+          <span className="text-lg sm:text-xl font-bold tracking-tight">DocuMind AI</span>
         </div>
         
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
@@ -38,9 +38,10 @@ export default function Landing() {
             Login
           </button>
           
+          {/* Smaller padding on mobile so it fits comfortably next to the theme toggle */}
           <button
             onClick={() => navigate('/signup')}
-            className="px-5 py-2.5 text-sm font-semibold bg-violet-600 hover:bg-violet-700 active:scale-95 text-white rounded-lg shadow-sm cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
+            className="px-3.5 sm:px-5 py-2 sm:py-2.5 text-sm font-semibold bg-violet-600 hover:bg-violet-700 active:scale-95 text-white rounded-lg shadow-sm cursor-pointer transition-all focus:outline-none focus:ring-2 focus:ring-violet-500 focus:ring-offset-2 dark:focus:ring-offset-gray-950"
           >
             Get Started
           </button>
@@ -48,18 +49,18 @@ export default function Landing() {
       </header>
 
       <main>
-        {/* Hero Section */}
-        <section className="flex flex-col items-center text-center px-6 py-24 md:py-32 max-w-5xl mx-auto">
+        {/* Hero Section — less vertical padding on mobile */}
+        <section className="flex flex-col items-center text-center px-4 sm:px-6 py-16 md:py-32 max-w-5xl mx-auto">
           <div className={`inline-flex items-center gap-2 text-sm px-4 py-1.5 rounded-full mb-8 font-medium shadow-sm border cursor-default transition-colors ${isDark ? 'bg-violet-500/10 border-violet-500/20 text-violet-300' : 'bg-violet-50 border-violet-100 text-violet-700'}`}>
             <Zap size={16} className={isDark ? 'text-violet-400' : 'text-violet-500'} />
             AI-Powered Document Intelligence
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-tight mb-6 tracking-tight">
             Have a Conversation with Your <span className="text-transparent bg-clip-text bg-linear-to-r from-violet-500 to-fuchsia-500">Documents</span>
           </h1>
 
-          <p className={`text-lg md:text-xl max-w-2xl mb-10 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+          <p className={`text-base sm:text-lg md:text-xl max-w-2xl mb-10 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
             Upload any PDF or image and ask AI anything. Instantly analyze your resume, match it to job descriptions, and extract vital insights in seconds.
           </p>
 
@@ -79,18 +80,18 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* Features Section */}
-        <section className={`py-24 px-6 border-y transition-colors duration-300 ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
+        {/* Features Section — less vertical padding on mobile */}
+        <section className={`py-16 md:py-24 px-4 sm:px-6 border-y transition-colors duration-300 ${isDark ? 'bg-gray-900 border-gray-800' : 'bg-white border-gray-200'}`}>
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Core Features</h2>
-              <p className={`max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Everything you need to extract data, understand content, and optimize your professional documents.</p>
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">Core Features</h2>
+              <p className={`max-w-2xl mx-auto text-base sm:text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Everything you need to extract data, understand content, and optimize your professional documents.</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
               
               {/* Feature 1 */}
-              <div className={`p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
+              <div className={`p-6 sm:p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
                 <div className="w-14 h-14 bg-violet-600 rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
                   <Upload size={24} className="text-white" />
                 </div>
@@ -101,7 +102,7 @@ export default function Landing() {
               </div>
 
               {/* Feature 2 */}
-              <div className={`p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
+              <div className={`p-6 sm:p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
                 <div className="w-14 h-14 bg-violet-600 rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
                   <MessageSquare size={24} className="text-white" />
                 </div>
@@ -112,7 +113,7 @@ export default function Landing() {
               </div>
 
               {/* Feature 3 */}
-              <div className={`p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
+              <div className={`p-6 sm:p-8 rounded-2xl border cursor-pointer group transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${isDark ? 'bg-gray-800/50 border-gray-700 hover:bg-gray-800 hover:shadow-violet-900/20' : 'bg-slate-50 border-gray-200 hover:bg-white hover:shadow-violet-500/10'}`}>
                 <div className="w-14 h-14 bg-violet-600 rounded-xl flex items-center justify-center mb-6 shadow-md group-hover:scale-110 transition-transform">
                   <FileText size={24} className="text-white" />
                 </div>
@@ -126,10 +127,10 @@ export default function Landing() {
           </div>
         </section>
 
-        {/* How It Works */}
-        <section className="py-24 px-6">
+        {/* How It Works — less vertical padding on mobile */}
+        <section className="py-16 md:py-24 px-4 sm:px-6">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-16">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-12 md:mb-16">
               How It Works
             </h2>
             <div className="flex flex-col md:flex-row items-center justify-between gap-10 md:gap-4 relative">
@@ -161,7 +162,7 @@ export default function Landing() {
 
       {/* Footer */}
       <footer className={`py-10 border-t text-sm transition-colors duration-300 ${isDark ? 'border-gray-800 bg-gray-950 text-gray-500' : 'border-gray-200 bg-slate-50 text-gray-500'}`}>
-        <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <div className="flex items-center gap-2 cursor-pointer hover:text-violet-500 transition-colors" onClick={() => navigate('/')}>
             <Brain size={20} className="text-violet-500" />
             <span className="font-semibold text-gray-900 dark:text-gray-300">DocuMind AI</span>
