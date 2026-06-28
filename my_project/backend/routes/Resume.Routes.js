@@ -1,7 +1,7 @@
 import express from "express";
 import protect from "../middelware/Auth.middelware.js";
 import { analyzeResume, matchWithJD } from "../controller/Resume.Controller.js";
-import { upload_cloudinary } from "../utils/Cloudinary.js";
+import { upload_cloudinary } from "../utils/cloudinary.js";
 const Resumerouter = express.Router();
 
 

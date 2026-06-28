@@ -2,7 +2,7 @@ import express from 'express'
 import {storeDocument} from '../utils/pinecone.js'
 import extractTextFromPDF from '../utils/pdfParser.js';
 import protect from '../middelware/Auth.middelware.js';
-import { upload_cloudinary } from '../utils/Cloudinary.js';
+import { upload_cloudinary } from '../utils/cloudinary.js';
 
 
 import { getAllUserDocument ,DeletUserDocument , Uploads } from '../controller/Uploads.Controller.js';
