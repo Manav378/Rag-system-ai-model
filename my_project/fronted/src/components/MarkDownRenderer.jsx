@@ -82,7 +82,7 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Paragraph ──
         p: ({ children }) => (
-          <p className="mb-2 leading-relaxed text-sm sm:text-base break-words">{children}</p>
+          <p className="mb-2 leading-relaxed text-sm sm:text-base wrap-break-word">{children}</p>
         ),
 
         // ── Lists ──
@@ -93,7 +93,7 @@ const MarkdownRenderer = ({ content }) => {
           <ol className="list-decimal list-inside mb-2 flex flex-col gap-1">{children}</ol>
         ),
         li: ({ children }) => (
-          <li className="text-xs sm:text-sm break-words">{children}</li>
+          <li className="text-xs sm:text-sm wrap-break-word">{children}</li>
         ),
 
         // ── Bold + Italic ──
