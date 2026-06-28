@@ -122,7 +122,7 @@ const Chatbot = () => {
             </div>
 
             {/* Bubble */}
-            <div className={`max-w-[88%] sm:max-w-[80%] md:max-w-[75%] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm
+           <div className={`max-w-[88%] sm:max-w-[80%] md:max-w-[75%] px-3 sm:px-4 py-2.5 sm:py-3 rounded-2xl text-sm overflow-x-hidden
               ${msg.role === 'user'
                 ? 'bg-violet-600 text-white rounded-tr-none'
                 : theme === 'dark'
