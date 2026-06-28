@@ -23,7 +23,7 @@ const MarkdownRenderer = ({ content }) => {
           const codeString = String(children).replace(/\n$/, '')
 
           return !inline && match ? (
-            <div className="relative my-2 rounded-xl overflow-hidden max-w-full">
+            <div className="relative my-2 rounded-xl overflow-hidden w-full">
               {/* Language + Copy Button */}
               <div className={`flex items-center justify-between px-3 sm:px-4 py-2 text-xs font-mono
                 ${theme === 'dark' ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-600'}`}
@@ -38,8 +38,8 @@ const MarkdownRenderer = ({ content }) => {
                 </button>
               </div>
 
-              {/* Code — overflow scroll */}
-              <div className="overflow-x-auto max-w-full">
+              {/* Code — horizontal scroll */}
+              <div className="overflow-x-auto w-full">
                 <SyntaxHighlighter
                   style={theme === 'dark' ? oneDark : oneLight}
                   language={match[1]}
@@ -47,9 +47,11 @@ const MarkdownRenderer = ({ content }) => {
                   customStyle={{
                     margin: 0,
                     borderRadius: 0,
-                    fontSize: '0.75rem',
-                    maxWidth: '100%',
-                    wordBreak: 'break-word',
+                    fontSize: '0.72rem',
+                    overflowX: 'auto',
+                    whiteSpace: 'pre',
+                    wordBreak: 'normal',
+                    width: '100%',
                   }}
                   {...props}
                 >
@@ -60,7 +62,7 @@ const MarkdownRenderer = ({ content }) => {
           ) : (
             // Inline code
             <code
-              className={`px-1.5 py-0.5 rounded text-xs font-mono break-all
+              className={`px-1.5 py-0.5 rounded text-xs font-mono wrap-break-word
                 ${theme === 'dark' ? 'bg-gray-700 text-violet-300' : 'bg-gray-200 text-violet-600'}`}
               {...props}
             >
@@ -71,13 +73,13 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Headings ──
         h1: ({ children }) => (
-          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2">{children}</h1>
+          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2 wrap-break-word">{children}</h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2">{children}</h2>
+          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2 wrap-break-word">{children}</h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1">{children}</h3>
+          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1 wrap-break-word">{children}</h3>
         ),
 
         // ── Paragraph ──
@@ -106,7 +108,7 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Blockquote ──
         blockquote: ({ children }) => (
-          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm
+          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm wrap-break-word
             ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
           >
             {children}
@@ -115,7 +117,7 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Table ──
         table: ({ children }) => (
-          <div className="overflow-x-auto my-2 max-w-full">
+          <div className="overflow-x-auto my-2 w-full">
             <table className={`w-full text-xs sm:text-sm border-collapse rounded-xl overflow-hidden
               ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
             >
@@ -131,7 +133,7 @@ const MarkdownRenderer = ({ content }) => {
           </th>
         ),
         td: ({ children }) => (
-          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm
+          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm wrap-break-word
             ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
           >
             {children}
