@@ -23,9 +23,9 @@ const MarkdownRenderer = ({ content }) => {
           const codeString = String(children).replace(/\n$/, '')
 
           return !inline && match ? (
-           <div className="relative my-2 rounded-xl overflow-hidden w-full max-w-full">
+            <div style={{ maxWidth: '100%', overflowX: 'hidden' }} className="relative my-2 rounded-xl w-full">
               {/* Language + Copy Button */}
-              <div className={`flex items-center justify-between px-3 sm:px-4 py-2 text-xs font-mono
+              <div className={`flex items-center justify-between px-3 sm:px-4 py-2 text-xs font-mono rounded-t-xl
                 ${theme === 'dark' ? 'bg-gray-700 text-gray-400' : 'bg-gray-200 text-gray-600'}`}
               >
                 <span>{match[1]}</span>
@@ -37,21 +37,21 @@ const MarkdownRenderer = ({ content }) => {
                   Copy
                 </button>
               </div>
+
               {/* Code — horizontal scroll */}
-              <div className="overflow-x-auto w-full max-w-full">
+              <div style={{ overflowX: 'auto', maxWidth: '100%' }}>
                 <SyntaxHighlighter
                   style={theme === 'dark' ? oneDark : oneLight}
                   language={match[1]}
                   PreTag="div"
                   customStyle={{
                     margin: 0,
-                    borderRadius: 0,
+                    borderRadius: '0 0 0.75rem 0.75rem',
                     fontSize: '0.72rem',
-                    overflowX: 'visible',   // 'auto' se 'visible' karo
                     whiteSpace: 'pre',
                     wordBreak: 'normal',
-                    width: 'max-content',   // '100%' se 'max-content' karo — yahi main fix hai
-                    minWidth: '100%',       // chhote code ke liye full width bhi rahegi
+                    overflowX: 'auto',
+                    maxWidth: '100%',
                   }}
                   {...props}
                 >
@@ -62,7 +62,7 @@ const MarkdownRenderer = ({ content }) => {
           ) : (
             // Inline code
             <code
-              className={`px-1.5 py-0.5 rounded text-xs font-mono wrap-break-word
+              className={`px-1.5 py-0.5 rounded text-xs font-mono break-words
                 ${theme === 'dark' ? 'bg-gray-700 text-violet-300' : 'bg-gray-200 text-violet-600'}`}
               {...props}
             >
@@ -73,18 +73,18 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Headings ──
         h1: ({ children }) => (
-          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2 wrap-break-word">{children}</h1>
+          <h1 className="text-lg sm:text-xl font-bold mt-4 mb-2 break-words">{children}</h1>
         ),
         h2: ({ children }) => (
-          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2 wrap-break-word">{children}</h2>
+          <h2 className="text-base sm:text-lg font-bold mt-3 mb-2 break-words">{children}</h2>
         ),
         h3: ({ children }) => (
-          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1 wrap-break-word">{children}</h3>
+          <h3 className="text-sm sm:text-base font-semibold mt-2 mb-1 break-words">{children}</h3>
         ),
 
         // ── Paragraph ──
         p: ({ children }) => (
-          <p className="mb-2 leading-relaxed text-sm sm:text-base wrap-break-word">{children}</p>
+          <p className="mb-2 leading-relaxed text-sm sm:text-base break-words">{children}</p>
         ),
 
         // ── Lists ──
@@ -95,7 +95,7 @@ const MarkdownRenderer = ({ content }) => {
           <ol className="list-decimal list-inside mb-2 flex flex-col gap-1">{children}</ol>
         ),
         li: ({ children }) => (
-          <li className="text-xs sm:text-sm wrap-break-word">{children}</li>
+          <li className="text-xs sm:text-sm break-words">{children}</li>
         ),
 
         // ── Bold + Italic ──
@@ -108,7 +108,7 @@ const MarkdownRenderer = ({ content }) => {
 
         // ── Blockquote ──
         blockquote: ({ children }) => (
-          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm wrap-break-word
+          <blockquote className={`border-l-4 border-violet-500 pl-3 sm:pl-4 my-2 italic text-sm break-words
             ${theme === 'dark' ? 'text-gray-400' : 'text-gray-600'}`}
           >
             {children}
@@ -133,7 +133,7 @@ const MarkdownRenderer = ({ content }) => {
           </th>
         ),
         td: ({ children }) => (
-          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm wrap-break-word
+          <td className={`px-2 sm:px-4 py-1.5 sm:py-2 border text-xs sm:text-sm break-words
             ${theme === 'dark' ? 'border-gray-700' : 'border-gray-200'}`}
           >
             {children}
